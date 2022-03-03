@@ -1,0 +1,49 @@
+﻿@page "/build"
+
+@inject IBananaService BananaService
+@inject IUnitService UnitService
+
+
+<h3>Build</h3>
+
+<div class="form-group">
+    <select @bind="selectedUnitId" class="form-control">
+        @foreach(var unit in UnitService.Units)
+        {
+            <option value="@unit.Id">@unit.Titie // @unit.BananaCost Bananas</option>
+        }
+    </select>
+</div>
+
+@if (needMoreBanaas)
+{
+    <div class="validation-message">
+        Not enough bananas!
+    </div>
+}
+
+<button class="btn btn-primary" @onclick="BuildUnit">Build selected unit</button>
+
+@code 
+{
+    int selectedUnitId = 1;
+    bool needMoreBanaas = false;
+
+    public void BuildUnit()
+    {
+        var selectedUnit = UnitService.Units.FirstOrDefault(s => s.Id == selectedUnitId);
+
+        if (BananaService.Bananas < selectedUnit.BananaCost)
+        {
+            needMoreBanaas = true;
+            return;
+        }
+        else
+        {
+            BananaService.EatBananas(selectedUnit.BananaCost);
+            UnitService.AddUnit(selectedUnitId);
+            needMoreBanaas = false;
+        }
+    }
+
+}
