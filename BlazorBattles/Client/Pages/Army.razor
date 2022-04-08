@@ -4,7 +4,7 @@
 
 <h3>Army</h3>
 
-<table class="table">
+<table class="table table-striped">
     @foreach (var unit in UnitService.MyUnits)
     {
         <tr>
@@ -12,13 +12,13 @@
                 @switch (@unit.UnitId)
                 {
                     case 1:
-                        <img src="/icons/knight.png" />
+                        <img src="/icons/knight.png" alt=""/>
                         break;
                     case 2:
-                        <img src="/icons/archer.png" />
+                        <img src="/icons/archer.png" alt=""/>
                         break;
                     case 3:
-                        <img src="/icons/mage.png"/>
+                        <img src="/icons/mage.png" alt=""/>
                         break;
                 }
             </td>

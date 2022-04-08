@@ -2,12 +2,12 @@
 
 @inject IBananaService BananaService
 @inject IUnitService UnitService
-
+@inject IToastService _toastService
 
 <h3>Build</h3>
 
 <div class="form-group">
-    <select @bind="selectedUnitId" class="form-control">
+    <select @bind="_selectedUnitId" class="form-control">
         @foreach(var unit in UnitService.Units)
         {
             <option value="@unit.Id">@unit.Titie // @unit.BananaCost Bananas</option>
@@ -15,10 +15,12 @@
     </select>
 </div>
 
-@if (needMoreBanaas)
+@if (_needMoreBanaas)
 {
     <div class="validation-message">
-        Not enough bananas!
+        @{
+            _toastService.ShowError("No bananas! Add more!");
+        }
     </div>
 }
 
@@ -26,23 +28,23 @@
 
 @code 
 {
-    int selectedUnitId = 1;
-    bool needMoreBanaas = false;
+    int _selectedUnitId = 1;
+    bool _needMoreBanaas = false;
 
     public void BuildUnit()
     {
-        var selectedUnit = UnitService.Units.FirstOrDefault(s => s.Id == selectedUnitId);
+        var selectedUnit = UnitService.Units.FirstOrDefault(s => s.Id == _selectedUnitId);
 
         if (BananaService.Bananas < selectedUnit.BananaCost)
         {
-            needMoreBanaas = true;
+            _needMoreBanaas = true;
             return;
         }
         else
         {
             BananaService.EatBananas(selectedUnit.BananaCost);
-            UnitService.AddUnit(selectedUnitId);
-            needMoreBanaas = false;
+            UnitService.AddUnit(_selectedUnitId);
+            _needMoreBanaas = false;
         }
     }
 
