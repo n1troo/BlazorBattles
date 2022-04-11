@@ -1,13 +1,67 @@
 @page "/register"
+@inject IUnitService _unitService
 
 <h3>Register</h3>
+
+<EditForm Model="_register" OnValidSubmit="HandleRegistration">
+    <DataAnnotationsValidator/>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <InputText @bind-Value="_register.Email" id="email" class="form-control"></InputText>
+        <ValidationMessage For="() => _register.Email"/>
+    </div>
+    <div class="form-group">
+        <label for="username">UserName</label>
+        <InputText id="username" @bind-Value="_register.UserName" class="form-control"></InputText>
+        <ValidationMessage For="() => _register.UserName"/>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <InputText id="password" @bind-Value="_register.Password" type="password" class="form-control"></InputText>
+        <ValidationMessage For="() => _register.Password"/>
+    </div>
+    <div class="form-group">
+        <label for="confirmpassword">Password confirm</label>
+        <InputText id="confirmpassword" @bind-Value="_register.ConfirmPassword" type="password" class="form-control"></InputText>
+        <ValidationMessage For="() => _register.ConfirmPassword"/>
+    </div>
+    <div class="form-group">
+        <label for="bio">Bio:</label>
+        <InputText id="bio" @bind-Value="_register.Bio" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label for="startunit">StartUnit</label>
+        <InputSelect id="startunit" @bind-Value="_register.StarUnitId" class="form-control">
+            @foreach (var unit in _unitService.Units)
+            {   
+                <option value="@unit.Id">@unit.Titie</option>
+            }
+        </InputSelect>
+    </div>
+    <div class="form-group">
+        <label for="date">Data</label>
+        <InputDate id="date" @bind-Value="_register.DateOfBirth" class="form-control"></InputDate>
+    </div>
+    <div class="form-group">
+        <label for="banans">Bana count</label>
+        <InputNumber id="banans" @bind-Value="_register.Bananas" class="form-control"></InputNumber>
+        <ValidationMessage For="() => _register.Bananas"/>
+    </div>
+    <div class="form-check">
+        <InputCheckbox id="confirmed" @bind-Value="_register.isConfirmed" class="form-check-input"></InputCheckbox>
+        <label for="confirmed" class="form-check-label">Confirmed</label>
+        <ValidationMessage For="() => _register.isConfirmed"/>
+    </div>
+    <button class="btn btn-success" type="submit">Register me!</button>
+</EditForm>
+
 
 @code {
     UserRegister _register = new UserRegister();
 
-    void HandleRegiseter()
+    void HandleRegistration()
     {
-        
+        Console.WriteLine($"Store user {_register.UserName} in database");
     }
 
 }
