@@ -1,6 +1,8 @@
 @page "/register"
 @inject IUnitService _unitService
 @inject IJSRuntime _js
+@inject NavigationManager _manager
+
 <h3>Register</h3>
 
 <EditForm Model="_user" OnValidSubmit="HandleRegistration">
@@ -30,13 +32,31 @@
         <InputText id="bio" @bind-Value="_user.Bio" class="form-control"></InputText>
     </div>
     <div class="form-group">
-        <label for="startunit">StartUnit</label>
-        <InputSelect id="startunit" @bind-Value="_user.StarUnitId" class="form-control">
+        <label for="startunit">StartUnit:</label>
+        <InputRadioGroup id="startunit" @bind-Value="_user.StarUnitId" class="form-control">
+          
             @foreach (var unit in _unitService.Units)
             {
-                <option value="@unit.Id">@unit.Titie</option>
+                string className = "";
+                @switch (@unit.Id)
+                {
+                    case 1:
+                        className = "/icons/knight.png";
+                        break;
+                    case 2:
+                        className = "/icons/archer.png";
+                        break;
+                    case 3:
+                        className = "/icons/mage.png";
+                        break;
+                }
+                
+                <br/><InputRadio Value="@unit.Id"/> 
+                <img src="@className" alt=""/>
+                <span style="padding-left: 10px;">@unit.Titie</span> 
             }
-        </InputSelect>
+          
+        </InputRadioGroup>
     </div>
     <div class="form-group">
         <label for="date">Data</label>
@@ -60,9 +80,11 @@
 @code {
     UserRegister _user = new UserRegister();
 
-    void HandleRegistration()
+    async void HandleRegistration()
     {
-        _js.InvokeVoidAsync("console.log()",_user);
+
+        await _js.InvokeAsync<string>("console.log", _user);
+        _manager.NavigateTo("login");
     }
 
 }
