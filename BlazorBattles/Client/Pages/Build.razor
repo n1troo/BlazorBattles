@@ -1,10 +1,10 @@
 ﻿@page "/build"
+@using Microsoft.AspNetCore.Authorization
 
 @inject IBananaService BananaService
 @inject IUnitService UnitService
 @inject IToastService _toastService
-
-<h3>Build</h3>
+@attribute [Authorize]
 
 <div class="form-group">
     <select @bind="_selectedUnitId" class="form-control">

@@ -1,6 +1,7 @@
 ﻿@page "/army"
+@using Microsoft.AspNetCore.Authorization
 @inject IUnitService UnitService
-
+@attribute [Authorize]
 
 <h3>Army</h3>
 

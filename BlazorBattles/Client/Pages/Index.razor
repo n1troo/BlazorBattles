@@ -1,2 +1,10 @@
 ﻿@page "/"
 <h1>Welcom to Blazor Battles</h1>
+<AuthorizeView>
+    <Authorized>
+        <h1>Helloo user @context.User.Identity.Name</h1>
+    </Authorized>
+    <NotAuthorized>
+        <Login/>
+    </NotAuthorized>
+</AuthorizeView>
