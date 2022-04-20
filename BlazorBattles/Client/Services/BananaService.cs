@@ -4,7 +4,7 @@
     {
         public int Bananas { get; set; } = 1000;
 
-        public event Action OnChange;
+        public event Action? OnChange;
 
         public void EatBananas(int amount)
         {
@@ -19,7 +19,7 @@
         }
         public void BananasChanged()
         {
-            OnChange.Invoke();
+            if (OnChange != null) OnChange.Invoke();
         }
 
     }

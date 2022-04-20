@@ -3,7 +3,7 @@
 
 @inject IBananaService BananaService
 @inject IUnitService UnitService
-@inject IToastService _toastService
+@inject IToastService ToastService
 @attribute [Authorize]
 
 <div class="form-group">
@@ -19,7 +19,7 @@
 {
     <div class="validation-message">
         @{
-            _toastService.ShowError("No bananas! Add more!");
+            ToastService.ShowError("No bananas! Add more!");
         }
     </div>
 }
@@ -42,9 +42,12 @@
         }
         else
         {
-            BananaService.EatBananas(selectedUnit.BananaCost);
-            UnitService.AddUnit(_selectedUnitId);
-            _needMoreBanaas = false;
+            if (selectedUnit != null)
+            {
+                BananaService.EatBananas(selectedUnit.BananaCost);
+                UnitService.AddUnit(_selectedUnitId);
+                _needMoreBanaas = false;
+            }
         }
     }
 
