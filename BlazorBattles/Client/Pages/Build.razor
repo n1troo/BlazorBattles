@@ -35,7 +35,7 @@
     {
         var selectedUnit = UnitService.Units.FirstOrDefault(s => s.Id == _selectedUnitId);
 
-        if (BananaService.Bananas < selectedUnit.BananaCost)
+        if (selectedUnit != null && BananaService.Bananas < selectedUnit.BananaCost)
         {
             _needMoreBanaas = true;
             return;

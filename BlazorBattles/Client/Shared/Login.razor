@@ -18,7 +18,6 @@ Please log in  below or register <a href="register">Register here!</a>
     <button class="btn btn-success" type="submit">Submit</button>
 </EditForm>
 
-
 @code {
     private bool isAntenticated = false;
     private UserLogin _userLogin = new UserLogin();
@@ -31,5 +30,4 @@ Please log in  below or register <a href="register">Register here!</a>
         await _localStorageService.SetItemAsync<bool>("isAuthenticated", true);
         await _authentication.GetAuthenticationStateAsync();
     }
-
 }
