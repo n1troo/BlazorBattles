@@ -29,10 +29,10 @@ namespace BlazorBattles.Client.Services
 
         public async Task LoadUnitsAsync()
         {
-            if (Units.Count == 0)
-            {
+            // if (Units.Count == 0)
+            // {
                 Units = await _httpClient.GetFromJsonAsync<List<Unit>>("/api/unit");
-            }
+            //}
         }
     }
 }
