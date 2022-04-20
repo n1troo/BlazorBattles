@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,11 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers" />
+    <Compile Remove="Controllers\WeatherForecastController.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\WeatherForecastController.cs" />
+    <Folder Include="Controllers" />
   </ItemGroup>
 
 
