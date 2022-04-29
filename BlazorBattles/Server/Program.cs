@@ -1,4 +1,8 @@
+using System.Configuration;
+using BlazorBattles.Server.Data;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+// builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(
+
+builder.Services.AddDbContext<DbContext>(opt => opt.UseSqlServer("Default"));
 
 var app = builder.Build();
 
